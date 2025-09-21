@@ -1,0 +1,7 @@
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Library\obj\Debug\Library.csproj.AssemblyReference.cache
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Library\obj\Debug\Library.csproj.CoreCompileInputs.cache
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Library\bin\Debug\Library.dll.config
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Library\bin\Debug\Library.dll
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Library\bin\Debug\Library.pdb
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Library\obj\Debug\Library.dll
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Library\obj\Debug\Library.pdb

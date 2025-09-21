@@ -14,6 +14,6 @@ namespace Library
         public int axisZ { get; set; }
 
         public bool zauzet { get; set; } // True ako je zauzet, false ako nije
-        public bool meteoroloskiUslovi { get; set; } // True ako su uslovi abnormalni, false ako nisu
+        public bool meteoroloskiUslovi { get; set; } = false; // True ako su losi, false ako su dobri
     }
 }

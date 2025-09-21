@@ -1,0 +1,7 @@
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\bin\Debug\Client.exe.config
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\bin\Debug\Client.exe
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\bin\Debug\Client.pdb
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\obj\Debug\Client.csproj.AssemblyReference.cache
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\obj\Debug\Client.exe
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\obj\Debug\Client.pdb
