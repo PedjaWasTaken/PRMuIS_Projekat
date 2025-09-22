@@ -8,12 +8,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Kontrola_Leta
 {
     internal class Server
     {
-        
+
         static void Main(string[] args)
         {
             Server server = new Server();
@@ -26,12 +27,13 @@ namespace Kontrola_Leta
         private UdpClient udpListener;
         private TcpListener tcpListener;
 
-        // Store active flights
         private static readonly List<Let> ActiveFlights = new List<Let>();
         private static readonly object LockObj = new object();
 
-        public int N = 30;
-        public int M = 20;
+        public static int N = 30;
+        public static int M = 20;
+
+        Sektor[,,] sektori = makeSectorMap(N, M);
 
         public async Task StartAsync()
         {
@@ -42,19 +44,13 @@ namespace Kontrola_Leta
             Console.WriteLine($"[SERVER] TCP listening on {TcpPort}");
 
             tcpListener.Start();
-            
-            Sektor[,,] sektori = makeSectorMap(N, M);
 
             _ = HandleUdpRequestsAsync(sektori);
 
             while (true)
             {
-               
-
                 var tcpClient = await tcpListener.AcceptTcpClientAsync();
                 _ = HandleTcpFlightAsync(tcpClient, sektori);
-
-                 
             }
         }
 
@@ -81,8 +77,9 @@ namespace Kontrola_Leta
                         bool conflict = false;
                         foreach (var flight in ActiveFlights)
                         {
-                            
-                            if (startX == flight.axisStartY && startY == flight.axisStartX && startX == flight.axisStartZ)
+                            if (startX == flight.axisStartX &&
+                                startY == flight.axisStartY &&
+                                startZ == flight.axisStartZ)
                             {
                                 conflict = true;
                                 break;
@@ -132,18 +129,53 @@ namespace Kontrola_Leta
 
                 int i = 0;
                 int j = 0;
+
                 while ((flight.axisStartX != flight.axisEndX) || (flight.axisStartY != flight.axisEndY))
                 {
-                    //kretanje aviona ka destinaciji
-                    if (flight.axisEndX > flight.axisStartX)
-                        flight.axisStartX += 1;
-                    if (flight.axisEndX < flight.axisStartX)
-                        flight.axisStartX -= 1;
-                    if (flight.axisEndY > flight.axisStartY)
-                        flight.axisStartY += 1;
-                    if (flight.axisEndY < flight.axisStartY)
-                        flight.axisStartY -= 1;
+                    sektori[flight.axisStartX, flight.axisStartY, flight.axisStartZ - 1].zauzet = false;
 
+                    int nextX = flight.axisStartX;
+                    int nextY = flight.axisStartY;
+
+                    // Kretanje 
+                    if (flight.axisEndX > flight.axisStartX)
+                        nextX += 1;
+                    else if (flight.axisEndX < flight.axisStartX)
+                        nextX -= 1;
+
+                    if (flight.axisEndY > flight.axisStartY)
+                        nextY += 1;
+                    else if (flight.axisEndY < flight.axisStartY)
+                        nextY -= 1;
+
+                    // Provera vremena 
+                    if (sektori[nextX, nextY, flight.axisStartZ - 1].meteoroloskiUslovi)
+                    {
+                        j++;
+                        Console.WriteLine($"[SERVER] Oluja! ({nextX},{nextY},{flight.axisStartZ})");
+
+                        if (nextX + 1 < N && !sektori[nextX + 1, nextY, flight.axisStartZ - 1].meteoroloskiUslovi)
+                            nextY += 1;
+                        else if (nextY + 1 < M && !sektori[nextX, nextY + 1, flight.axisStartZ - 1].meteoroloskiUslovi)
+                            nextX += 1;
+                        else if (nextX - 1 >= 0 && !sektori[nextX - 1, nextY, flight.axisStartZ - 1].meteoroloskiUslovi)
+                            nextY -= 1;
+                        else if (nextY - 1 >= 0 && !sektori[nextX, nextY - 1, flight.axisStartZ - 1].meteoroloskiUslovi)
+                            nextX -= 1;
+                        else
+                        {
+                            //ako nekako zavrsi u olujnom sektoru
+                            Console.WriteLine("[SERVER] Plane stuck :(.");
+                            sektori[flight.axisStartX, flight.axisStartY, flight.axisStartZ - 1].zauzet = true;
+                            await Task.Delay(2000);
+                            continue;
+                        }
+                    }
+
+                    flight.axisStartX = nextX;
+                    flight.axisStartY = nextY;
+
+                    // Kolizija
                     lock (LockObj)
                     {
                         foreach (var other in ActiveFlights)
@@ -154,26 +186,47 @@ namespace Kontrola_Leta
                                 other.axisStartZ == flight.axisStartZ)
                             {
                                 j++;
-                                // Collision
-                                flight.axisStartX += 1;
-                                flight.axisStartY += 1;
-                                Console.WriteLine($"[SERVER] Conflict detected! " +
-                                                  $"Adjusted {flight.letelica.imeLetelice} to " +
-                                                  $"({flight.axisStartX},{flight.axisStartY},{flight.axisStartZ})");
+
+                                if (flight.letelica.trenutnoPutnika < other.letelica.trenutnoPutnika &&
+                                    flight.axisStartZ < 3)
+                                {
+                                    flight.axisStartZ += 1;
+                                    Console.WriteLine($"[SERVER] Vertical shift: {flight.letelica.imeLetelice} climbed to Z={flight.axisStartZ}");
+                                }
+                                else if (other.axisStartZ < 3)
+                                {
+                                    other.axisStartZ += 1;
+                                    Console.WriteLine($"[SERVER] Vertical shift: {other.letelica.imeLetelice} climbed to Z={other.axisStartZ}");
+                                }
+                                else
+                                {
+                                    flight.axisStartX += 1;
+                                    flight.axisStartY += 1;
+                                    Console.WriteLine($"[SERVER] Conflict resolved horizontally: {flight.letelica.imeLetelice} moved to ({flight.axisStartX},{flight.axisStartY},{flight.axisStartZ})");
+                                }
                                 break;
                             }
                         }
                     }
-                                i++;
 
-                    string update = $"Position update {i}: Current locatiion {flight.axisStartX}, {flight.axisStartY}, {flight.axisStartZ} heading to {flight.axisEndX},{flight.axisEndY}\t Number of course corrections: {j}\n";
+                    sektori[flight.axisStartX, flight.axisStartY, flight.axisStartZ - 1].zauzet = true;
+
+                    lock (LockObj)
+                    {
+                        int index = ActiveFlights.IndexOf(flight);
+                        if (index >= 0)
+                            ActiveFlights[index] = flight;
+                    }
+
+                    i++;
+                    int estimated = Math.Max(Math.Abs(flight.axisStartX - flight.axisEndX), Math.Abs(flight.axisStartX - flight.axisEndX)); 
+                    string update = $"Position update {i}: Current location {flight.axisStartX}, {flight.axisStartY}, {flight.axisStartZ} heading to {flight.axisEndX},{flight.axisEndY}\t Course corrections: {j}\t Estimated sectors till goal: {estimated}\n";
                     byte[] buffer = Encoding.UTF8.GetBytes(update);
                     await stream.WriteAsync(buffer, 0, buffer.Length);
-                    
-                    printSektorMap(sektori, N, M);
-                    await Task.Delay(2000);
-                    
 
+                    printSektorMap(sektori, N, M);
+
+                    await Task.Delay(2000);
                 }
 
                 printSektorMap(sektori, N, M);
@@ -184,17 +237,19 @@ namespace Kontrola_Leta
 
                 Console.WriteLine("[SERVER] Flight arrived.");
 
-                // Remove flight from active list
                 lock (LockObj)
                 {
+                    sektori[flight.axisStartX, flight.axisStartY, flight.axisStartZ - 1].zauzet = false;
                     ActiveFlights.Remove(flight);
                 }
+                printSektorMap(sektori, N, M);
             }
 
             tcpClient.Close();
         }
-        Random r = new Random();
-        public Sektor[,,] makeSectorMap(int N, int M)
+
+        static Random r = new Random();
+        public static Sektor[,,] makeSectorMap(int N, int M)
         {
             Sektor[,,] sektori = new Sektor[N, M, 3];
             for (int j = 0; j < M; j++)
@@ -203,15 +258,15 @@ namespace Kontrola_Leta
                 {
                     for (int k = 0; k < 3; k++)
                     {
-                        sektori[i, j, k] = new Sektor();
-                        sektori[i, j, k].axisX = i;
-                        sektori[i, j, k].axisY = j;
-                        sektori[i, j, k].axisZ = k + 1;
-
-                        sektori[i, j, k].zauzet = false;
-
+                        sektori[i, j, k] = new Sektor
+                        {
+                            axisX = i,
+                            axisY = j,
+                            axisZ = k + 1,
+                            zauzet = false
+                        };
                     }
-                    //Predpostavka da na svakoj visini ima nevreme
+
                     if (r.Next(0, 100) < 10)
                     {
                         sektori[i, j, 0].meteoroloskiUslovi = true;
@@ -219,25 +274,74 @@ namespace Kontrola_Leta
                         sektori[i, j, 2].meteoroloskiUslovi = true;
                     }
                 }
-            }return sektori;
+            }
+            return sektori;
         }
+
         public void printSektorMap(Sektor[,,] sektori, int N, int M)
         {
             Console.Clear();
-            for (int j = 0; j < M; j++)
+            Console.WriteLine("=== SECTOR MAP ===");
+
+            lock (LockObj)
             {
-                for (int i = 0; i < N; i++)
+                for (int j = 0; j < M; j++)
                 {
-                    if (sektori[i, j, 0].meteoroloskiUslovi == true)
-                        Console.Write(" X ");
-                    else
-                        Console.Write("[ ]");
+                    for (int i = 0; i < N; i++)
+                    {
+                        int flightNumber = -1;
+
+                        for (int k = 0; k < 3; k++)
+                        {
+                            for (int index = 0; index < ActiveFlights.Count; index++)
+                            {
+                                var flight = ActiveFlights[index];
+                                if (flight.axisStartX == i && flight.axisStartY == j && flight.axisStartZ == k + 1)
+                                {
+                                    flightNumber = index + 1; 
+                                    break;
+                                }
+                            }
+                            if (flightNumber != -1)
+                                break;
+                        }
+
+                        bool hasWeather = false;
+                        for (int k = 0; k < 3; k++)
+                        {
+                            if (sektori[i, j, k].meteoroloskiUslovi)
+                            {
+                                hasWeather = true;
+                                break;
+                            }
+                        }
+
+                        if (flightNumber != -1)
+                            Console.Write($"[{flightNumber}]"); 
+                        else if (hasWeather)
+                            Console.Write(" X ");
+                        else
+                            Console.Write("[ ]");
+                    }
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
+
+                // Letovi
+                Console.WriteLine("\n=== ACTIVE FLIGHTS ===");
+                if (ActiveFlights.Count == 0)
+                {
+                    Console.WriteLine("No active flights.");
+                }
+                else
+                {
+                    for (int i = 0; i < ActiveFlights.Count; i++)
+                    {
+                        var flight = ActiveFlights[i];
+                        Console.WriteLine($"{i + 1}. {flight.letelica.imeLetelice} - Current: ({flight.axisStartX},{flight.axisStartY},{flight.axisStartZ}) " +
+                                          $"Destination: ({flight.axisEndX},{flight.axisEndY})");
+                    }
+                }
             }
-            
-            
         }
     }
 }
-   

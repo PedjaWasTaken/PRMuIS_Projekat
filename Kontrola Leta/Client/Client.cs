@@ -96,11 +96,11 @@ namespace Client
                                 
                             };
 
-                            // Send Let object
+                            // Slanje
                             BinaryFormatter formatter = new BinaryFormatter();
                             formatter.Serialize(ns, let);
 
-                            // 4. Receive next positions from server
+                            // Primanje
                             byte[] buffer = new byte[1024];
                             while (true)
                             {
@@ -114,7 +114,7 @@ namespace Client
                 }
                 else
                 {
-                    Console.WriteLine("Flight request denied or invalid response.");
+                    Console.WriteLine("Invalid response/flight.");
                 }
             }
             catch (SocketException ex)
