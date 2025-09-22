@@ -4,13 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Kontrola Leta\Server.csproj", "{DF94ABA4-BB35-42B5-8DA2-6133C259B8B7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{CF4AB2F4-6DDD-4F47-A030-E593FFF3DDEB}"
 	ProjectSection(ProjectDependencies) = postProject
-		{CDA884CC-7D8D-4754-A95C-876EAF3DA17F} = {CDA884CC-7D8D-4754-A95C-876EAF3DA17F}
+		{CF4AB2F4-6DDD-4F47-A030-E593FFF3DDEB} = {CF4AB2F4-6DDD-4F47-A030-E593FFF3DDEB}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{CF4AB2F4-6DDD-4F47-A030-E593FFF3DDEB}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{CDA884CC-7D8D-4754-A95C-876EAF3DA17F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CF4AB2F4-6DDD-4F47-A030-E593FFF3DDEB} = {CF4AB2F4-6DDD-4F47-A030-E593FFF3DDEB}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

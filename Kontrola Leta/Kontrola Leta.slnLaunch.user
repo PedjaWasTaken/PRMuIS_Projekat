@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "All",
+    "Projects": [
+      {
+        "Path": "Kontrola Leta\\Server.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Client\\Client.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

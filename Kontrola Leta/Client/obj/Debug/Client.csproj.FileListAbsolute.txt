@@ -5,3 +5,7 @@ C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\obj\Debug\C
 C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
 C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\obj\Debug\Client.exe
 C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\obj\Debug\Client.pdb
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\bin\Debug\Library.dll
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\bin\Debug\Library.pdb
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\bin\Debug\Library.dll.config
+C:\Users\Pedja\Documents\GitHub\PRMuIS_Projekat\Kontrola Leta\Client\obj\Debug\Client.csproj.Up2Date
