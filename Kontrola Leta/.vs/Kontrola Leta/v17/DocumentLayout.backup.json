@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\Pedja\\Documents\\GitHub\\PRMuIS_Projekat\\Kontrola Leta\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DF94ABA4-BB35-42B5-8DA2-6133C259B8B7}|Kontrola Leta\\Server.csproj|C:\\Users\\Pedja\\Documents\\GitHub\\PRMuIS_Projekat\\Kontrola Leta\\kontrola leta\\server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DF94ABA4-BB35-42B5-8DA2-6133C259B8B7}|Kontrola Leta\\Server.csproj|c:\\users\\pedja\\documents\\github\\prmuis_projekat\\kontrola leta\\kontrola leta\\server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DF94ABA4-BB35-42B5-8DA2-6133C259B8B7}|Kontrola Leta\\Server.csproj|solutionrelative:kontrola leta\\server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CDA884CC-7D8D-4754-A95C-876EAF3DA17F}|Client\\Client.csproj|c:\\users\\pedja\\documents\\github\\prmuis_projekat\\kontrola leta\\client\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CF4AB2F4-6DDD-4F47-A030-E593FFF3DDEB}|Library\\Library.csproj|c:\\users\\pedja\\documents\\github\\prmuis_projekat\\kontrola leta\\library\\sektor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CF4AB2F4-6DDD-4F47-A030-E593FFF3DDEB}|Library\\Library.csproj|solutionrelative:library\\sektor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDA884CC-7D8D-4754-A95C-876EAF3DA17F}|Client\\Client.csproj|C:\\Users\\Pedja\\Documents\\GitHub\\PRMuIS_Projekat\\Kontrola Leta\\client\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CDA884CC-7D8D-4754-A95C-876EAF3DA17F}|Client\\Client.csproj|solutionrelative:client\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -22,19 +26,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Client.cs",
               "DocumentMoniker": "C:\\Users\\Pedja\\Documents\\GitHub\\PRMuIS_Projekat\\Kontrola Leta\\Client\\Client.cs",
               "RelativeDocumentMoniker": "Client\\Client.cs",
               "ToolTip": "C:\\Users\\Pedja\\Documents\\GitHub\\PRMuIS_Projekat\\Kontrola Leta\\Client\\Client.cs",
               "RelativeToolTip": "Client\\Client.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAcwGoAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAYwCMAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-21T15:19:10.992Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Sektor.cs",
+              "DocumentMoniker": "C:\\Users\\Pedja\\Documents\\GitHub\\PRMuIS_Projekat\\Kontrola Leta\\Library\\Sektor.cs",
+              "RelativeDocumentMoniker": "Library\\Sektor.cs",
+              "ToolTip": "C:\\Users\\Pedja\\Documents\\GitHub\\PRMuIS_Projekat\\Kontrola Leta\\Library\\Sektor.cs",
+              "RelativeToolTip": "Library\\Sektor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T06:40:43.097Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
@@ -45,20 +64,20 @@
               "RelativeDocumentMoniker": "Kontrola Leta\\Server.cs",
               "ToolTip": "C:\\Users\\Pedja\\Documents\\GitHub\\PRMuIS_Projekat\\Kontrola Leta\\Kontrola Leta\\Server.cs",
               "RelativeToolTip": "Kontrola Leta\\Server.cs",
-              "ViewState": "AgIAANoAAAAAAAAAAAAwwO0AAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAANAAAAAAAAAAAAAAAOkAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-21T14:54:15.674Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Letelica.cs",
               "DocumentMoniker": "C:\\Users\\Pedja\\Documents\\GitHub\\PRMuIS_Projekat\\Kontrola Leta\\Library\\Letelica.cs",
               "RelativeDocumentMoniker": "Library\\Letelica.cs",
               "ToolTip": "C:\\Users\\Pedja\\Documents\\GitHub\\PRMuIS_Projekat\\Kontrola Leta\\Library\\Letelica.cs",
               "RelativeToolTip": "Library\\Letelica.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAsAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-21T14:59:26.54Z",
               "EditorCaption": ""
